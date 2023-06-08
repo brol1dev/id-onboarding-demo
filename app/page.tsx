@@ -6,6 +6,19 @@ export default function Home() {
           Registrate
         </h2>
       </div>
+      <div className="flex mt-4">
+        <div className="flex items-center justify-center rounded-full font-semibold text-sm bg-indigo-600 h-10 w-10">
+          1
+        </div>
+        <div className="text-gray-300 text-base mx-1 pt-2">•••</div>
+        <div className="flex items-center justify-center rounded-full font-semibold text-sm bg-indigo-200 h-10 w-10">
+          2
+        </div>
+        <div className="text-gray-300 text-base mx-1 pt-2">•••</div>
+        <div className="flex items-center justify-center rounded-full font-semibold text-sm bg-indigo-200 h-10 w-10">
+          3
+        </div>
+      </div>
       <div className="flex flex-col justify-center px-6 py-12 lg:px-8">
         <div className="w-96 p-6 bg-white border border-gray-200 rounded-lg shadow">
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -53,7 +66,7 @@ export default function Home() {
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Iniciar registro
+                  Continuar
                 </button>
               </div>
             </form>
