@@ -1,29 +1,18 @@
 import Image from "next/image";
-import Camera from "../components/Camera";
+import Camera from "../components/camera";
+import Steps from "../components/steps";
 
 export default function Step2() {
   return (
-    <main className="flex flex-col min-h-screen items-center justify-center text-gray-900">
+    <main className="flex flex-col gap-8 min-h-screen items-center justify-center text-gray-900">
       <div className="flex items-center justify-between sm:mx-auto sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Verificación de usuario
         </h2>
       </div>
-      <div className="flex mt-4 text-white">
-        <div className="flex items-center justify-center rounded-full font-semibold text-sm bg-indigo-600 h-10 w-10">
-          1
-        </div>
-        <div className="text-gray-300 text-base mx-1 pt-2">•••</div>
-        <div className="flex items-center justify-center rounded-full font-semibold text-sm bg-emerald-500 h-10 w-10">
-          2
-        </div>
-        <div className="text-gray-300 text-base mx-1 pt-2">•••</div>
-        <div className="flex items-center justify-center rounded-full font-semibold text-sm bg-indigo-200 h-10 w-10">
-          3
-        </div>
-      </div>
-      <div className="flex flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="w-96 p-6 bg-white border border-gray-200 rounded-lg shadow">
+      <Steps active={2} />
+      <div className="flex flex-col justify-center items-center">
+        <div className="w-10/12 p-6 bg-white border border-gray-200 rounded-lg shadow">
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <div className="space-y-6">
               <>
