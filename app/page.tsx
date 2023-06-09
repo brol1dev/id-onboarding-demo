@@ -1,13 +1,15 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="flex flex-col min-h-screen items-center justify-center">
       <div className="flex items-center justify-between sm:mx-auto sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Registrate
+          Regístrate
         </h2>
       </div>
       <div className="flex mt-4">
-        <div className="flex items-center justify-center rounded-full font-semibold text-sm bg-indigo-600 h-10 w-10">
+        <div className="flex items-center justify-center rounded-full font-semibold text-sm bg-emerald-500 h-10 w-10">
           1
         </div>
         <div className="text-gray-300 text-base mx-1 pt-2">•••</div>
@@ -62,12 +64,13 @@ export default function Home() {
               </div>
 
               <div>
-                <button
+                {/* <button
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Continuar
-                </button>
+                </button> */}
+                <Link href="/step2" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Continuar</Link>
               </div>
             </form>
           </div>
