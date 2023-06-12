@@ -10,8 +10,8 @@ export default function Home() {
         </h2>
       </div>
       <Steps active={1} />
-      <div className="flex flex-col justify-center items-center">
-        <div className="w-10/12 p-6 bg-white border border-gray-200 rounded-lg shadow">
+      <div className="flex flex-col w-80 justify-center items-center">
+        <div className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow">
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form className="space-y-6" action="#" method="POST">
               <div>
