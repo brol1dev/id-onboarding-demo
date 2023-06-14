@@ -5,6 +5,7 @@ import Image from "next/image";
 import Camera from "../components/camera";
 import Steps from "../components/steps";
 import { useStore } from "../hooks/useStore";
+import Link from "next/link";
 
 const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
   const files = e.target.files;
@@ -80,12 +81,12 @@ export default function Step2() {
               </div>
 
               <div>
-                <button
-                  type="submit"
+                <Link
+                  href="/step3"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Continuar
-                </button>
+                </Link>
               </div>
             </div>
           </div>
