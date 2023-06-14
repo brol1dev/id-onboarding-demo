@@ -1,8 +1,27 @@
+"use client";
+
 import Image from "next/image";
+
 import Camera from "../components/camera";
 import Steps from "../components/steps";
+import { useStore } from "../hooks/useStore";
+
+const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const files = e.target.files;
+
+  if (!files || files.length === 0) {
+    return;
+  }
+
+  // Only allows one file.
+  useStore.setState((state) => ({
+    documentImg: URL.createObjectURL(files[0]),
+  }));
+};
 
 export default function Step2() {
+  const documentImg = useStore((state) => state.documentImg);
+
   return (
     <main className="flex flex-col gap-8 min-h-screen items-center justify-center text-gray-900">
       <div className="flex items-center justify-between sm:mx-auto sm:max-w-sm">
@@ -42,9 +61,19 @@ export default function Step2() {
                     type="file"
                     className="hidden"
                     accept="image/*"
+                    onChange={handleFile}
                   />
                 </label>
               </div>
+
+              {documentImg && (
+                <Image
+                  src={documentImg}
+                  width={1280}
+                  height={720}
+                  alt="document Image"
+                />
+              )}
 
               <div>
                 <Camera />

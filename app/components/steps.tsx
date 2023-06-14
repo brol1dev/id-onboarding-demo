@@ -21,7 +21,7 @@ const Steps = ({ active }: Props) => {
             >
               {step}
             </div>
-            {step < steps.length && (<div className="text-gray-300 text-base mx-1 pt-2">•••</div>)}
+            {step < steps.length && (<div key={`dots-${step}`} className="text-gray-300 text-base mx-1 pt-2">•••</div>)}
           </>
         );
       })}
