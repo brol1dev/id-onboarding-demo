@@ -18,7 +18,7 @@ export default function Valid() {
                   Se validó que tus datos son correctos.
                 </p>
                 <Image
-                  src="/checkmark-circle.svg"
+                  src="/checkmark.svg"
                   alt="checkmark icon"
                   width={48}
                   height={48}
