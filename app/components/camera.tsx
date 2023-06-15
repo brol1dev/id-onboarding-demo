@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Webcam from "react-webcam";
+import { useStore } from "../hooks/useStore";
 
 const videoConstraints = {
   width: 1280,
@@ -11,23 +12,24 @@ const videoConstraints = {
 };
 
 const Camera = () => {
-  const [imgSrc, setImgSrc] = useState<string | null>(null);
+  const photoImg = useStore((state) => state.photoImg);
   const [showCam, setShowCam] = useState<boolean>(false);
   const webcamRef = React.useRef<Webcam>(null);
+
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (!imageSrc) {
       return;
     }
-    setImgSrc(imageSrc);
+    useStore.setState({ photoImg: imageSrc });
     setShowCam(false);
   }, [webcamRef]);
   return (
     <div className="flex flex-col gap-2">
       {!showCam ? (
         <>
-          {imgSrc && (
-            <Image src={imgSrc} width={1280} height={720} alt="my image" />
+          {photoImg && (
+            <Image src={photoImg} width={1280} height={720} alt="my image" />
           )}
           <button
             onClick={() => setShowCam(true)}

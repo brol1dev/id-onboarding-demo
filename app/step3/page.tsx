@@ -8,7 +8,7 @@ import { useRef } from "react";
 import Image from "next/image";
 
 export default function Step3() {
-  const signatureImg = useStore((state) => state.signatureImg);
+  const store = useStore();
   const signaturePadRef = useRef<SignaturePad>(null);
 
   const clear = () => {
@@ -57,17 +57,6 @@ export default function Step3() {
               >
                 Limpiar
               </button>
-
-              {signatureImg && (
-                <div className="flex w-full">
-                  <Image
-                    src={signatureImg}
-                    width={1280}
-                    height={720}
-                    alt="document Image"
-                  />
-                </div>
-              )}
 
               <div>
                 <button
