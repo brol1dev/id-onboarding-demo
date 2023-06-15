@@ -1,13 +1,15 @@
 "use client";
 
 import SignaturePad from "react-signature-pad-wrapper";
+import { useRouter } from "next/navigation";
 
 import { useStore } from "../hooks/useStore";
 import Steps from "../components/steps";
 import { useRef } from "react";
-import Image from "next/image";
+import { ValidateResponse } from "@/app/types";
 
 export default function Step3() {
+  const router = useRouter();
   const store = useStore();
   const signaturePadRef = useRef<SignaturePad>(null);
 
@@ -21,13 +23,30 @@ export default function Step3() {
     signature.clear();
   };
 
-  const sendData = () => {
+  const sendData = async () => {
     const signature = signaturePadRef.current;
 
     if (!signature || signature.isEmpty()) {
       return;
     }
     useStore.setState({ signatureImg: signature.toDataURL() });
+
+    const res = await fetch("/api/validate", {
+      method: "POST",
+      body: JSON.stringify(store),
+    });
+
+    if (res.status !== 200) {
+      return;
+    }
+
+    const validateResponse = (await res.json()) as ValidateResponse;
+    if (validateResponse.valid) {
+      router.push("/valid");
+      return;
+    }
+
+    router.push("/invalid");
   };
 
   return (
