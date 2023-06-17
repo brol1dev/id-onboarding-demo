@@ -11,8 +11,11 @@ const videoConstraints = {
   facingMode: "user",
 };
 
-const Camera = () => {
-  const photoImg = useStore((state) => state.photoImg);
+type Props = {
+  callback: (imageSrc: string) => void;
+};
+
+const Camera = ({ callback }: Props) => {
   const [showCam, setShowCam] = useState<boolean>(false);
   const webcamRef = React.useRef<Webcam>(null);
 
@@ -21,23 +24,19 @@ const Camera = () => {
     if (!imageSrc) {
       return;
     }
-    useStore.setState({ photoImg: imageSrc });
+    callback(imageSrc);
     setShowCam(false);
-  }, [webcamRef]);
+  }, [webcamRef, callback]);
+
   return (
     <div className="flex flex-col gap-2">
       {!showCam ? (
-        <>
-          {photoImg && (
-            <Image src={photoImg} width={1280} height={720} alt="my image" />
-          )}
-          <button
-            onClick={() => setShowCam(true)}
-            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Usar camara
-          </button>
-        </>
+        <button
+          onClick={() => setShowCam(true)}
+          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Usa la cámara
+        </button>
       ) : (
         <>
           <Webcam

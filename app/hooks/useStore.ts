@@ -2,14 +2,16 @@ import { create } from "zustand";
 
 type StoreType = {
   email: string;
-  documentImg: string;
+  frontImg: string;
+  backImg: string;
   photoImg: string;
   signatureImg: string;
 };
 
 export const useStore = create<StoreType>((set) => ({
   email: "",
-  documentImg: "",
+  frontImg: "",
+  backImg: "",
   photoImg: "",
   signatureImg: "",
 }));
