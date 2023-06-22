@@ -5,9 +5,23 @@ import { useStore } from "../hooks/useStore";
 import Link from "next/link";
 import Camera from "./camera";
 
-export default function FrontDocument() {
-  const frontImg = useStore((state) => state.frontImg);
+type Props = {
+  title: string;
+  buttonText: string;
+  img: string;
+  setImage: (img: string) => void;
+  clearImage: () => void;
+  buttonAction: () => void;
+};
 
+export default function ImageSide({
+  title,
+  buttonText,
+  img,
+  setImage,
+  clearImage,
+  buttonAction,
+}: Props) {
   const handleSelectedFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
 
@@ -16,35 +30,20 @@ export default function FrontDocument() {
     }
 
     // Only allows one file.
-    useStore.setState((state) => ({
-      frontImg: URL.createObjectURL(files[0]),
-    }));
+    setImage(URL.createObjectURL(files[0]));
   };
 
   const setImageFromCamera = (img: string) => {
-    useStore.setState((state) => ({
-      frontImg: img,
-    }));
-  };
-
-  const clearImage = () => {
-    useStore.setState((state) => ({
-      frontImg: "",
-    }));
+    setImage(img);
   };
 
   return (
     <div className="space-y-6">
-      <p className="font-semibold">Sube foto del frente de tu INE</p>
+      <p className="font-semibold">{title}</p>
 
-      {frontImg ? (
+      {img ? (
         <>
-          <Image
-            src={frontImg}
-            width={1280}
-            height={720}
-            alt="document Image"
-          />
+          <Image src={img} width={1280} height={720} alt="document Image" />
           <button
             onClick={clearImage}
             className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -82,12 +81,12 @@ export default function FrontDocument() {
       )}
 
       <div>
-        <Link
-          href="/step3"
+        <button
+          onClick={buttonAction}
           className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          Continuar a reverso de INE
-        </Link>
+          {buttonText}
+        </button>
       </div>
     </div>
   );

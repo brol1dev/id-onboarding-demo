@@ -1,7 +1,5 @@
-"use client";
-
 import Steps from "../components/steps";
-import FrontDocument from "../components/front-doc";
+import DocumentSelection from "../components/document-selection";
 
 export default function Step2() {
   return (
@@ -15,7 +13,7 @@ export default function Step2() {
       <div className="flex flex-col w-80 justify-center items-center">
         <div className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow">
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <FrontDocument />
+            <DocumentSelection />
           </div>
         </div>
       </div>
