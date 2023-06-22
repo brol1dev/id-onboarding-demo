@@ -7,46 +7,19 @@ import { useStore } from "../hooks/useStore";
 import Steps from "../components/steps";
 import { useRef } from "react";
 import { ValidateResponse } from "@/app/types";
+import Camera from "../components/camera";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Step3() {
-  const router = useRouter();
-  const store = useStore();
-  const signaturePadRef = useRef<SignaturePad>(null);
+  const photoImg = useStore((state) => state.photoImg);
 
-  const clear = () => {
-    const signature = signaturePadRef.current;
-
-    if (!signature) {
-      return;
-    }
-
-    signature.clear();
+  const setImageFromCamera = (image: string) => {
+    useStore.setState({ photoImg: image });
   };
 
-  const sendData = async () => {
-    const signature = signaturePadRef.current;
-
-    if (!signature || signature.isEmpty()) {
-      return;
-    }
-    useStore.setState({ signatureImg: signature.toDataURL() });
-
-    const res = await fetch("/api/validate", {
-      method: "POST",
-      body: JSON.stringify(store),
-    });
-
-    if (res.status !== 200) {
-      return;
-    }
-
-    const validateResponse = (await res.json()) as ValidateResponse;
-    if (validateResponse.valid) {
-      router.push("/valid");
-      return;
-    }
-
-    router.push("/invalid");
+  const clearImage = () => {
+    useStore.setState({ photoImg: "" });
   };
 
   return (
@@ -63,28 +36,34 @@ export default function Step3() {
             <div className="space-y-6">
               <>
                 <div>
-                  <h3 className="font-semibold">Firma</h3>
+                  <h3 className="font-semibold">Foto de rostro</h3>
                 </div>
               </>
 
-              <div className="flex w-full border border-gray-200">
-                <SignaturePad ref={signaturePadRef} />
-              </div>
-              <button
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                onClick={clear}
-              >
-                Limpiar
-              </button>
-
-              <div>
-                <button
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  onClick={sendData}
-                >
-                  Enviar
-                </button>
-              </div>
+              {photoImg ? (
+                <>
+                  <Image
+                    src={photoImg}
+                    width={1280}
+                    height={720}
+                    alt="document Image"
+                  />
+                  <button
+                    onClick={clearImage}
+                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Cambiar
+                  </button>
+                  <Link
+                    href="/step4"
+                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Continuar
+                  </Link>
+                </>
+              ) : (
+                <Camera callback={setImageFromCamera} />
+              )}
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ type Props = {
 };
 
 const Steps = ({ active }: Props) => {
-  const steps = [1, 2, 3];
+  const steps = [1, 2, 3, 4];
   return (
     <div className="flex text-white">
       {steps.map((step) => {
@@ -21,7 +21,14 @@ const Steps = ({ active }: Props) => {
             >
               {step}
             </div>
-            {step < steps.length && (<div key={`dots-${step}`} className="text-gray-300 text-base mx-1 pt-2">•••</div>)}
+            {step < steps.length && (
+              <div
+                key={`dots-${step}`}
+                className="text-gray-300 text-base mx-1 pt-2"
+              >
+                •••
+              </div>
+            )}
           </>
         );
       })}
