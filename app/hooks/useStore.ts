@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type StoreType = {
+export type StoreType = {
   email: string;
   frontImg: string;
   backImg: string;

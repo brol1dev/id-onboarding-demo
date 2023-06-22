@@ -1,15 +1,11 @@
 "use client";
 
-import SignaturePad from "react-signature-pad-wrapper";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 
 import { useStore } from "../hooks/useStore";
 import Steps from "../components/steps";
-import { useRef } from "react";
-import { ValidateResponse } from "@/app/types";
 import Camera from "../components/camera";
-import Link from "next/link";
-import Image from "next/image";
 
 export default function Step3() {
   const photoImg = useStore((state) => state.photoImg);
