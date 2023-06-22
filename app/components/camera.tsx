@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import React, { useState } from "react";
 import Webcam from "react-webcam";
-import { useStore } from "../hooks/useStore";
 
 const videoConstraints = {
   width: 1280,
@@ -46,6 +44,7 @@ const Camera = ({ callback }: Props) => {
             width={1280}
             height={720}
             videoConstraints={videoConstraints}
+            mirrored={true}
           />
           <button
             onClick={capture}
