@@ -1,12 +1,6 @@
 "use client";
 
-import Image from "next/image";
-
-import Camera from "../components/camera";
 import Steps from "../components/steps";
-import { useStore } from "../hooks/useStore";
-import Link from "next/link";
-import { useState } from "react";
 import FrontDocument from "../components/front-doc";
 
 export default function Step2() {
