@@ -4,17 +4,35 @@ import { setTimeout } from "timers/promises";
 import { StoreType } from "../hooks/useStore";
 import { redirect } from "next/navigation";
 
+type ValidateResponse = {
+  valid: boolean;
+};
+
 const getBaseUrl = () => {
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
   return "http://127.0.0.1:8081";
 };
 
 export default async function validate(store: StoreType) {
-  const res = await fetch(`${getBaseUrl()}/api/python`, {
+  const res = await fetch(`${getBaseUrl()}/api/validate`, {
+    method: "POST",
     cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(store),
   });
-  const json = await res.json();
-  console.log("[Server action] validate: ", json);
 
+  if (!res.ok) {
+    console.error("[Server action | Validate] The response is invalid");
+    redirect("/invalid");
+  }
+
+  const json = (await res.json()) as ValidateResponse;
+  console.log("[Server action | Validate] validate response: ", json);
+
+  if (!json.valid) {
+    redirect("/invalid");
+  }
   redirect("/valid");
 }
