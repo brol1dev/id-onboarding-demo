@@ -4,21 +4,19 @@ import { setTimeout } from "timers/promises";
 import { StoreType } from "../hooks/useStore";
 import { redirect } from "next/navigation";
 
+const getBaseUrl = () => {
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return "http://127.0.0.1:8081";
+};
+
 export default async function validate(store: StoreType) {
   if (process.env.NODE_ENV === "development") {
     setTimeout(2000);
-  } else if (process.env.VERCEL_URL)  {
-    console.log("Vercel");
-    const res = await fetch(`https://${process.env.VERCEL_URL}/api/python`);
-    console.log(res);
+  } else {
+    const res = await fetch(`${getBaseUrl()}/api/python`);
     const json = await res.json();
-    console.log(json);
+    console.log("[Server action] validate: ", json);
   }
 
-  
-  
-  
-  // const json = await res.json();
-  // console.log(json);
   redirect("/valid");
 }
