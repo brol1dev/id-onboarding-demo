@@ -1,10 +1,29 @@
+import base64
+from deepface import DeepFace
 from flask import Flask, jsonify, request
+import io
+from numpy import asarray
+from PIL import Image
 
 app = Flask(__name__)
 
 
 @app.route("/api/validate", methods=["POST"])
 def validate():
-    print("json: ", request.json)
-    print("data: ", request.data)
-    return jsonify({"valid": True})
+    request_json = request.get_json()
+    print("Received new request with json body")
+
+    print("About to compare images")
+    # Deepface accepts b64 encoded images
+    result = DeepFace.verify(request_json["frontImg"], request_json["photoImg"])
+
+    if "verified" not in result:
+        print("verified key not present in Deepface result")
+        return jsonify({"valid": False})
+
+    verified = result["verified"]
+    print("Compared images successfully: ", verified)
+
+    if verified:
+        return jsonify({"valid": True})
+    return jsonify({"valid": False})

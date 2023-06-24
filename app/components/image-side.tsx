@@ -22,7 +22,7 @@ export default function ImageSide({
   clearImage,
   buttonAction,
 }: Props) {
-  const handleSelectedFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectedFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
 
     if (!files || files.length === 0) {
@@ -30,11 +30,37 @@ export default function ImageSide({
     }
 
     // Only allows one file.
-    setImage(URL.createObjectURL(files[0]));
+    const b64File = await toBase64(files[0]);
+    if (typeof b64File !== "string") {
+      console.error("Error converting file to base64");
+      return;
+    }
+    setImage(b64File);
   };
 
   const setImageFromCamera = (img: string) => {
     setImage(img);
+  };
+
+  const toBase64 = (file: File) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const removeBase64Prefix = (input: string) => {
+    const regex = /^data:.+\/(.+);base64,/;
+    return input.replace(regex, "");
   };
 
   return (
