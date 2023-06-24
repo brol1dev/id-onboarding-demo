@@ -23,3 +23,7 @@ def validate():
     # if verified:
     #     return jsonify({"valid": True})
     return jsonify({"valid": True})
+
+@app.route("/api/statuz")
+def statuz():
+    return jsonify({"status": "ok"})
