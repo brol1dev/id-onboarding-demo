@@ -10,13 +10,11 @@ const getBaseUrl = () => {
 };
 
 export default async function validate(store: StoreType) {
-  if (process.env.NODE_ENV === "development") {
-    setTimeout(2000);
-  } else {
-    const res = await fetch(`${getBaseUrl()}/api/python`);
-    const json = await res.json();
-    console.log("[Server action] validate: ", json);
-  }
+  const res = await fetch(`${getBaseUrl()}/api/python`, {
+    cache: "no-store",
+  });
+  const json = await res.json();
+  console.log("[Server action] validate: ", json);
 
   redirect("/valid");
 }
