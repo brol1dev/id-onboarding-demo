@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useStore } from "../hooks/useStore";
-import Link from "next/link";
 import Camera from "./camera";
 
 type Props = {
@@ -56,11 +54,6 @@ export default function ImageSide({
         reject(error);
       };
     });
-  };
-
-  const removeBase64Prefix = (input: string) => {
-    const regex = /^data:.+\/(.+);base64,/;
-    return input.replace(regex, "");
   };
 
   return (

@@ -1,9 +1,5 @@
-import base64
 from deepface import DeepFace
 from flask import Flask, jsonify, request
-import io
-from numpy import asarray
-from PIL import Image
 
 app = Flask(__name__)
 
