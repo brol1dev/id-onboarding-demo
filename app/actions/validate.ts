@@ -8,7 +8,7 @@ type ValidateResponse = {
 };
 
 const getBaseUrl = () => {
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  if (process.env.VERCEL_URL) return `https://id-onboarding-demo-api.onrender.com`;
   return "http://127.0.0.1:8081";
 };
 
