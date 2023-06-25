@@ -9,10 +9,11 @@ import Steps from "../components/steps";
 import { ValidateResponse } from "../types";
 
 const getBaseUrl = () => {
-  if (process.env.VERCEL_URL) {
-    return "https://id-onboarding-demo-api.onrender.com";
-  }
-  return "http://127.0.0.1:8081";
+  return "https://id-onboarding-demo-api.onrender.com";
+  // if (process.env.VERCEL_URL) {
+  //   return "https://id-onboarding-demo-api.onrender.com";
+  // }
+  // return "http://127.0.0.1:8081";
 };
 
 export default function Step3() {
