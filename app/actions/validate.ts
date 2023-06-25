@@ -2,10 +2,8 @@
 
 import { StoreType } from "../hooks/useStore";
 import { redirect } from "next/navigation";
+import { ValidateResponse } from "../types";
 
-type ValidateResponse = {
-  valid: boolean;
-};
 
 const getBaseUrl = () => {
   if (process.env.VERCEL_URL) return "https://id-onboarding-demo-api.onrender.com";

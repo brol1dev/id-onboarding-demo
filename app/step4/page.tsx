@@ -4,10 +4,15 @@ import SignaturePad from "react-signature-pad-wrapper";
 import { useRouter } from "next/navigation";
 import { useRef, useTransition } from "react";
 
-import { useStore } from "../hooks/useStore";
+import { StoreType, useStore } from "../hooks/useStore";
 import Steps from "../components/steps";
-import { ValidateResponse } from "@/app/types";
-import validate from "../actions/validate";
+import { ValidateResponse } from "../types";
+
+const getBaseUrl = () => {
+  // return "https://id-onboarding-demo-api.onrender.com"
+  if (process.env.VERCEL_URL) return "https://id-onboarding-demo-api.onrender.com";
+  return "http://127.0.0.1:8081";
+};
 
 export default function Step3() {
   const [isPending, startTransition] = useTransition();
@@ -33,8 +38,41 @@ export default function Step3() {
     }
     useStore.setState({ signatureImg: signature.toDataURL() });
 
-    startTransition(() => validate(store));
+    await validate();
   };
+
+  const validate = async () => {
+    let res;
+    try {
+    res = await fetch(`${getBaseUrl()}/api/validate`, {
+      method: "POST",
+      cache: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(store),
+    });
+    } catch (e) {
+      console.error("error with /api/validate request. ", e);
+      router.push("/invalid");
+      return;
+    }
+    
+  
+    if (!res || !res.ok) {
+      console.error("[Server action | Validate] The response is invalid");
+      return;
+    }
+  
+    const json = (await res.json()) as ValidateResponse;
+    console.log("[Server action | Validate] validate response: ", json);
+  
+    if (!json.valid) {
+      router.push("/invalid");
+      return;
+    }
+    router.push("/valid");
+  }
 
   return (
     <main className="flex flex-col gap-8 min-h-screen items-center justify-center text-gray-900">
