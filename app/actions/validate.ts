@@ -8,12 +8,14 @@ type ValidateResponse = {
 };
 
 const getBaseUrl = () => {
-  if (process.env.VERCEL_URL) return `https://id-onboarding-demo-api.onrender.com`;
+  if (process.env.VERCEL_URL) return "https://id-onboarding-demo-api.onrender.com";
   return "http://127.0.0.1:8081";
 };
 
 export default async function validate(store: StoreType) {
-  const res = await fetch(`${getBaseUrl()}/api/validate`, {
+  let res;
+  try {
+  res = await fetch(`${getBaseUrl()}/api/validate`, {
     method: "POST",
     cache: "no-store",
     headers: {
@@ -21,8 +23,12 @@ export default async function validate(store: StoreType) {
     },
     body: JSON.stringify(store),
   });
+  } catch (e) {
+    console.error("error with /api/validate request. ", e);
+    redirect("/invalid");
+  }
 
-  if (!res.ok) {
+  if (!res || !res.ok) {
     console.error("[Server action | Validate] The response is invalid");
     redirect("/invalid");
   }
