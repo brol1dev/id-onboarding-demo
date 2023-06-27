@@ -18,8 +18,12 @@ def validate():
 
     frontImg = request_json["frontImg"]
     photoImg = request_json["photoImg"]
-    if frontImg is None or photoImg is None:
-        print("frontImg or photoImg not present in request body.")
+    if frontImg is None or not frontImg:
+        print("frontImg not present in request body.")
+        return jsonify({"valid": False})
+    
+    if photoImg is None or not photoImg:
+        print("photoImg not present in request body.")
         return jsonify({"valid": False})
 
     print("About to compare images")
