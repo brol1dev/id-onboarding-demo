@@ -9,11 +9,22 @@ CORS(app)
 @app.route("/api/validate", methods=["POST"])
 def validate():
     request_json = request.get_json()
+
+    if request_json is None:
+        print("No json body received.")
+        return jsonify({"valid": False})
+
     print("Received new request with json body")
+
+    frontImg = request_json["frontImg"]
+    photoImg = request_json["photoImg"]
+    if frontImg is None or photoImg is None:
+        print("frontImg or photoImg not present in request body.")
+        return jsonify({"valid": False})
 
     print("About to compare images")
     # Deepface accepts b64 encoded images
-    result = DeepFace.verify(request_json["frontImg"], request_json["photoImg"])
+    result = DeepFace.verify(frontImg, photoImg)
 
     if "verified" not in result:
         print("verified key not present in Deepface result")
