@@ -6,26 +6,26 @@ import { z } from "zod";
 import { columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
 import { UserNav } from "./components/user-nav";
-import { taskSchema } from "./data/schema";
+import { personSchema } from "./data/schema";
 
 export const metadata: Metadata = {
   title: "Tasks",
   description: "A task and issue tracker build using Tanstack Table.",
 };
 
-// Simulate a database read for tasks.
-async function getTasks() {
+// Simulate a database read for people.
+async function getPeople() {
   const data = await fs.readFile(
-    path.join(process.cwd(), "app/dashboard/data/tasks.json")
+    path.join(process.cwd(), "app/dashboard/data/people.json")
   );
 
-  const tasks = JSON.parse(data.toString());
+  const people = JSON.parse(data.toString());
 
-  return z.array(taskSchema).parse(tasks);
+  return z.array(personSchema).parse(people);
 }
 
 export default async function TaskPage() {
-  const tasks = await getTasks();
+  const people = await getPeople();
 
   return (
     <>
@@ -41,7 +41,7 @@ export default async function TaskPage() {
             <UserNav />
           </div>
         </div>
-        <DataTable data={tasks} columns={columns} />
+        <DataTable data={people} columns={columns} />
       </div>
     </>
   );
