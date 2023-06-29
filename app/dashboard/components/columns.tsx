@@ -36,7 +36,7 @@ export const columns: ColumnDef<Person>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Nombre" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("name")}</div>,
+    cell: ({ row }) => <div className="w-14 md:w-96 truncate font-medium">{row.getValue("name")}</div>,
     enableSorting: false,
     enableHiding: false,
   },
@@ -55,7 +55,7 @@ export const columns: ColumnDef<Person>[] = [
       }
 
       return (
-        <div className="flex w-[100px] items-center">
+        <div className="flex w-16 items-center">
           {status.icon && (
             <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}
