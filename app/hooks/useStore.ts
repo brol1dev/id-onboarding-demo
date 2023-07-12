@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
 
 export type StoreType = {
   email: string;
@@ -8,10 +9,19 @@ export type StoreType = {
   signatureImg: string;
 };
 
-export const useStore = create<StoreType>((set) => ({
-  email: "",
-  frontImg: "",
-  backImg: "",
-  photoImg: "",
-  signatureImg: "",
-}));
+export const useStore = create<StoreType>()(
+  devtools(
+    persist(
+      (set) => ({
+        email: "",
+        frontImg: "",
+        backImg: "",
+        photoImg: "",
+        signatureImg: "",
+      }),
+      {
+        name: "data",
+      }
+    )
+  )
+);
