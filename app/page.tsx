@@ -1,7 +1,19 @@
-import Link from "next/link";
+"use client";
+
 import Steps from "./components/steps";
+import { useRouter } from "next/navigation";
+import { useStore } from "./hooks/useStore";
+import { useRef } from "react";
 
 export default function Home() {
+  const router = useRouter();
+  const nameRef = useRef<HTMLInputElement>(null);
+
+  const continueAction = () => {
+    useStore.setState({ name: nameRef.current?.value });
+    router.push("/step2");
+  };
+
   return (
     <main className="flex flex-col gap-8 min-h-screen items-center justify-center">
       <div className="flex items-center justify-between sm:mx-auto sm:max-w-sm">
@@ -23,6 +35,7 @@ export default function Home() {
                 </label>
                 <div className="mt-2">
                   <input
+                    ref={nameRef}
                     id="username"
                     name="username"
                     type="text"
@@ -49,12 +62,12 @@ export default function Home() {
               </div>
 
               <div>
-                <Link
-                  href="/step2"
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                <button
+                  className="inline-flex items-center w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  onClick={continueAction}
                 >
                   Continuar
-                </Link>
+                </button>
               </div>
             </div>
           </div>
