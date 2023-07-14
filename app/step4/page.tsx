@@ -7,6 +7,7 @@ import { useRef, useTransition } from "react";
 import { StoreType, useStore } from "../hooks/useStore";
 import Steps from "../components/steps";
 import { ValidateResponse } from "../types";
+import Link from "next/link";
 
 const getBaseUrl = () => {
   // return "https://id-onboarding-demo-api.onrender.com";
@@ -132,12 +133,18 @@ export default function Step4() {
                     Validando...
                   </button>
                 ) : (
-                  <button
-                    className="inline-flex items-center w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    onClick={sendData}
-                  >
-                    Enviar
-                  </button>
+                  // <button
+                  //   className="inline-flex items-center w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  //   onClick={sendData}
+                  // >
+                  //   Enviar
+                  // </button>
+                  <Link
+                  href="/valid"
+                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Enviar
+                </Link>
                 )}
               </div>
             </div>
