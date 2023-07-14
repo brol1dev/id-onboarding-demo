@@ -4,6 +4,7 @@ import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
+  Row,
   SortingState,
   VisibilityState,
   flexRender,
@@ -27,6 +28,10 @@ import {
 
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
+import { useStore } from "@/app/hooks/useStore";
+import { stat } from "fs";
+import { Person, personSchema } from "../data/schema";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -44,6 +49,14 @@ export function DataTable<TData, TValue>({
     []
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const name = useStore((state) => state.name);
+  const router = useRouter();
+
+  const rowClicked = (row: Row<TData>) => {
+    if (row.index === 0 && name) {
+      router.push("/dashboard/item/0");
+    }
+  };
 
   const table = useReactTable({
     data,
@@ -96,6 +109,7 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => rowClicked(row)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
