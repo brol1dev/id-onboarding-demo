@@ -1,6 +1,6 @@
 "use client";
 
-import { StoreType, useStore } from "@/app/hooks/useStore";
+import { StoreType, VerifiedStatus, useStore } from "@/app/hooks/useStore";
 import Image from "next/image";
 
 type Props = {
@@ -11,8 +11,17 @@ type Props = {
 
 export default function Item({ params }: Props) {
   const store = useStore();
-  const { frontImg, signatureImg, photoImg, name } = store;
+  const { frontImg, signatureImg, photoImg, name, verifiedStatus } = store;
   console.log(store);
+
+  const approveAction = () => {
+    useStore.setState({ verifiedStatus: VerifiedStatus.Verified });
+  };
+
+  const rejectAction = () => {
+    useStore.setState({ verifiedStatus: VerifiedStatus.Rejected });
+  };
+
   return (
     <main className="flex flex-col gap-4">
       <div>
@@ -21,7 +30,9 @@ export default function Item({ params }: Props) {
         </h2>
       </div>
       <div>
-        <p className="text-center">Nombre: <span className="font-medium">{name}</span></p>
+        <p className="text-center">
+          Nombre: <span className="font-medium">{name}</span>
+        </p>
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-4 text-center">
@@ -53,12 +64,52 @@ export default function Item({ params }: Props) {
         </div>
       </div>
       <div className="flex sticky bottom-0 border bg-white border-gray-200 left-0 right-0 gap-4 p-4">
-        <button className="inline-flex items-center w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-          Aprobar
-        </button>
-        <button className="inline-flex items-center w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-          Denegar
-        </button>
+        {verifiedStatus === VerifiedStatus.Pending && (
+          <>
+            <button
+              className="inline-flex items-center w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={approveAction}
+            >
+              Aprobar
+            </button>
+            <button
+              className="inline-flex items-center w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={rejectAction}
+            >
+              Denegar
+            </button>
+          </>
+        )}
+        {verifiedStatus === VerifiedStatus.Verified && (
+          <>
+            <button
+              className="inline-flex items-center w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+            >
+              Aprobado
+            </button>
+            <button
+              className="inline-flex items-center w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={rejectAction}
+            >
+              Denegar
+            </button>
+          </>
+        )}
+        {verifiedStatus === VerifiedStatus.Rejected && (
+          <>
+            <button
+              className="inline-flex items-center w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={approveAction}
+            >
+              Aprobar
+            </button>
+            <button
+              className="inline-flex items-center w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+            >
+              Denegado
+            </button>
+          </>
+        )}
       </div>
     </main>
   );
