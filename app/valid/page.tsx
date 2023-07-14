@@ -4,11 +4,11 @@ import Link from "next/link";
 export default function Valid() {
   return (
     <>
-      <div className="flex flex-col fixed top-0 border border-dotted bg-slate-400 border-slate-600 left-0 right-0 gap-4 p-4 text-center">
+      <div className="flex flex-col fixed top-0 border border-dotted bg-slate-400 border-slate-600 left-0 right-0 gap-4 p-4 text-center items-center">
         <p>Solo visible para administradores</p>
         <Link
           href="/dashboard"
-          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="flex w-full justify-center rounded-md max-w-[270px] bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           Ir a panel administrativo
         </Link>

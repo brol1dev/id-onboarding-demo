@@ -44,35 +44,35 @@ export default function Step3() {
   };
 
   const validate = async () => {
-    let res;
-    try {
-      res = await fetch(`${getBaseUrl()}/api/validate`, {
-        method: "POST",
-        cache: "no-store",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(store),
-      });
-    } catch (e) {
-      console.error("error with /api/validate request. ", e);
-      router.push("/invalid");
-      return;
-    }
+    // let res;
+    // try {
+    //   res = await fetch(`${getBaseUrl()}/api/validate`, {
+    //     method: "POST",
+    //     cache: "no-store",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(store),
+    //   });
+    // } catch (e) {
+    //   console.error("error with /api/validate request. ", e);
+    //   router.push("/invalid");
+    //   return;
+    // }
 
-    if (!res || !res.ok) {
-      console.error("[Server action | Validate] The response is invalid");
-      router.push("/invalid");
-      return;
-    }
+    // if (!res || !res.ok) {
+    //   console.error("[Server action | Validate] The response is invalid");
+    //   router.push("/invalid");
+    //   return;
+    // }
 
-    const json = (await res.json()) as ValidateResponse;
-    console.log("[Server action | Validate] validate response: ", json);
+    // const json = (await res.json()) as ValidateResponse;
+    // console.log("[Server action | Validate] validate response: ", json);
 
-    if (!json.valid) {
-      router.push("/invalid");
-      return;
-    }
+    // if (!json.valid) {
+    //   router.push("/invalid");
+    //   return;
+    // }
 
     router.push("/valid");
   };
