@@ -36,7 +36,11 @@ export const columns: ColumnDef<Person>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Nombre" />
     ),
-    cell: ({ row }) => <div className="w-14 md:w-96 truncate font-medium">{row.getValue("name")}</div>,
+    cell: ({ row }) => (
+      <div className="w-14 md:w-96 truncate font-medium">
+        {row.getValue("name")}
+      </div>
+    ),
     enableSorting: false,
     enableHiding: false,
   },
@@ -66,9 +70,5 @@ export const columns: ColumnDef<Person>[] = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
   },
 ];
