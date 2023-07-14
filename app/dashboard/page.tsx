@@ -7,25 +7,26 @@ import { columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
 import { UserNav } from "./components/user-nav";
 import { personSchema } from "./data/schema";
+import DataTableWrapper from "./components/data-table-wrapper";
 
 export const metadata: Metadata = {
   title: "Tasks",
   description: "A task and issue tracker build using Tanstack Table.",
 };
 
-// Simulate a database read for people.
-async function getPeople() {
-  const data = await fs.readFile(
-    path.join(process.cwd(), "app/dashboard/data/people.json")
-  );
-
-  const people = JSON.parse(data.toString());
-
-  return z.array(personSchema).parse(people);
-}
-
 export default async function TaskPage() {
   const people = await getPeople();
+
+  // Simulate a database read for people.
+  async function getPeople() {
+    const data = await fs.readFile(
+      path.join(process.cwd(), "app/dashboard/data/people.json")
+    );
+
+    const people = JSON.parse(data.toString());
+
+    return z.array(personSchema).parse(people);
+  }
 
   return (
     <>
@@ -41,7 +42,7 @@ export default async function TaskPage() {
             <UserNav />
           </div>
         </div>
-        <DataTable data={people} columns={columns} />
+        <DataTableWrapper people={people} columns={columns} />
       </div>
     </>
   );
