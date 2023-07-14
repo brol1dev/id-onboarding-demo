@@ -16,7 +16,7 @@ const getBaseUrl = () => {
   return "http://127.0.0.1:8081";
 };
 
-export default function Step3() {
+export default function Step4() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const store = useStore();
@@ -32,7 +32,7 @@ export default function Step3() {
     signature.clear();
   };
 
-  const sendData = async () => {
+  const sendData = () => {
     const signature = signaturePadRef.current;
 
     if (!signature || signature.isEmpty()) {
@@ -40,7 +40,8 @@ export default function Step3() {
     }
     useStore.setState({ signatureImg: signature.toDataURL() });
 
-    await validate();
+    router.push("/valid");
+    // await validate();
   };
 
   const validate = async () => {
