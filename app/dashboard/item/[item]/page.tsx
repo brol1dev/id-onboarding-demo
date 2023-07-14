@@ -34,12 +34,12 @@ export default function Item({ params }: Props) {
           Nombre: <span className="font-medium">{name}</span>
         </p>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 items-center">
         <div className="flex flex-col gap-4 text-center">
           <Image
             src={frontImg}
-            width={1280}
-            height={720}
+            width={600}
+            height={338}
             alt="Document front side image"
           />
           <p>Frente de INE</p>
@@ -47,8 +47,8 @@ export default function Item({ params }: Props) {
         <div className="flex flex-col gap-4 text-center">
           <Image
             src={signatureImg}
-            width={1280}
-            height={720}
+            width={600}
+            height={338}
             alt="User signature image"
           />
           <p>Firma de cliente</p>
@@ -56,8 +56,8 @@ export default function Item({ params }: Props) {
         <div className="flex flex-col gap-4 text-center">
           <Image
             src={photoImg}
-            width={1280}
-            height={720}
+            width={600}
+            height={338}
             alt="User photo image"
           />
           <p>Foto del cliente</p>
